@@ -241,6 +241,20 @@
     display: block;
     color: inherit;
     padding: 0 0.5em 0.5em;
+    transition: color 0.35s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      background-color: $c-light;
+      transition: transform 0.35s ease, background-color 0.35s ease;
+    }
 
     &::after {
       content: "";
@@ -280,6 +294,12 @@
     &:focus {
       color: $c-purple;
       outline: none;
+
+      &::before {
+        transform: scaleX(1);
+        opacity: 1;
+        background-color: $c-purple;
+      }
 
       &::after {
         opacity: 1;
