@@ -2,6 +2,8 @@
   position: relative;
   display: flex;
   align-items: center;
+  border-radius: 3rem;
+  overflow: hidden;
 }
 
 .form__label {
@@ -43,6 +45,8 @@
   border: 0;
   border-radius: 3rem;
   outline: none;
+  transition: transform 1s;
+  animation: moveLeft 0.7s;
 
   &:focus {
     border: 1px solid $c-purple;
