@@ -27,3 +27,15 @@
     transform: translateX(0);
   }
 }
+
+@keyframes increaseHeight {
+  0% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+
+  100% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}

@@ -1,15 +1,22 @@
 import throttle from 'lodash/throttle';
+import {AnimateOverlay} from './animation.js';
 
 export default class FullPageScroll {
   constructor() {
     this.THROTTLE_TIMEOUT = 2000;
+    this.OVERLAY_TIMEOUT = 700;
 
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
 
+    this.historyScreenIndex = Array.from(this.screenElements).findIndex((screen) => screen.id === `story`);
+    this.prizesScreenIndex = Array.from(this.screenElements).findIndex((screen) => screen.id === `prizes`);
+
     this.activeScreen = 0;
+    this.prevScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+    this.animateOverlay = new AnimateOverlay();
   }
 
   init() {
@@ -21,6 +28,8 @@ export default class FullPageScroll {
 
   onScroll(evt) {
     const currentPosition = this.activeScreen;
+    this.prevScreen = this.activeScreen;
+
     this.reCalculateActiveScreenPosition(evt.deltaY);
     if (currentPosition !== this.activeScreen) {
       this.changePageDisplay();
@@ -29,14 +38,29 @@ export default class FullPageScroll {
 
   onUrlHashChanged() {
     const newIndex = Array.from(this.screenElements).findIndex((screen) => location.hash.slice(1) === screen.id);
+    this.prevScreen = this.activeScreen;
     this.activeScreen = (newIndex < 0) ? 0 : newIndex;
     this.changePageDisplay();
   }
 
   changePageDisplay() {
-    this.changeVisibilityDisplay();
-    this.changeActiveMenuItem();
-    this.emitChangeDisplayEvent();
+    const promise = new Promise((resolve) => {
+      if (this.prevScreen === this.historyScreenIndex && this.activeScreen === this.prizesScreenIndex) {
+        this.animateOverlay.init();
+        setTimeout(() => {
+          this.animateOverlay.destroy();
+          resolve();
+        }, this.OVERLAY_TIMEOUT);
+      } else {
+        resolve();
+      }
+    });
+
+    promise.then(() => {
+      this.changeVisibilityDisplay();
+      this.changeActiveMenuItem();
+      this.emitChangeDisplayEvent();
+    });
   }
 
   changeVisibilityDisplay() {
