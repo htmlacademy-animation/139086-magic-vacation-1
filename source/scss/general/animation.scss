@@ -61,3 +61,22 @@
   animation: increaseHeight 0.7s ease-out;
   z-index: 2;
 }
+
+@for $i from 1 through 4 {
+  .rules__item:nth-child(#{$i}) {
+    p {
+      animation: animateRulesItem 1s #{0.3*$i}s;
+      animation-fill-mode: both;
+    }
+
+    &::before {
+      animation: animateRulesItemCircle 0.5s #{0.3*$i}s cubic-bezier(0.62, 1.08, 0.6, 1.26);
+      animation-fill-mode: both;
+    }
+  }
+}
+
+.rules__link {
+  animation: animateRulesButton 1s 1.7s;
+  animation-fill-mode: both;
+}
