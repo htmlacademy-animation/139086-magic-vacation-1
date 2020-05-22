@@ -20,11 +20,13 @@
 
 @keyframes moveLeft {
   0% {
-    transform: translateX(100%);
+    transform: scaleX(0);
+    transform-origin: right;
   }
 
   100% {
-    transform: translateX(0);
+    transform: translateX(1);
+    transform-origin: right;
   }
 }
 
@@ -37,5 +39,51 @@
   100% {
     transform: scaleY(1);
     transform-origin: bottom;
+  }
+}
+
+@keyframes animateRulesItem {
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes animateRulesItemCircle {
+  0% {
+    color: transparent;
+    transform: scale(0);
+  }
+
+  99% {
+    color: transparent;
+  }
+
+  100% {
+    transform: scale(1);
+    color: $c-light;
+  }
+}
+
+@keyframes animateRulesButton {
+  0% {
+    color: transparent;
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+
+  50% {
+    color: transparent;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+
+  100% {
+    color: $c-dark;
   }
 }
