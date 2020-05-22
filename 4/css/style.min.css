@@ -991,9 +991,11 @@ img {
 
 @keyframes moveLeft {
   0% {
-    transform: translateX(100%); }
+    transform: scaleX(0);
+    transform-origin: right; }
   100% {
-    transform: translateX(0); } }
+    transform: translateX(1);
+    transform-origin: right; } }
 
 @keyframes increaseHeight {
   0% {
@@ -1386,7 +1388,6 @@ img {
   border: 0;
   border-radius: 3rem;
   outline: none;
-  transition: transform 1s;
   animation: moveLeft 0.7s; }
   .form__field:focus {
     border: 1px solid #a67ee5; }
