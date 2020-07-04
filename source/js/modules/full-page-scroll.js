@@ -1,5 +1,5 @@
 import throttle from 'lodash/throttle';
-import {AnimateOverlay} from './animation.js';
+import {AnimateOverlay, AccentTypographyBuild} from './animation.js';
 
 export default class FullPageScroll {
   constructor() {
@@ -9,6 +9,7 @@ export default class FullPageScroll {
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
 
+    this.introScreenIndex = Array.from(this.screenElements).findIndex((screen) => screen.id === `top`);
     this.historyScreenIndex = Array.from(this.screenElements).findIndex((screen) => screen.id === `story`);
     this.prizesScreenIndex = Array.from(this.screenElements).findIndex((screen) => screen.id === `prizes`);
 
@@ -16,7 +17,10 @@ export default class FullPageScroll {
     this.prevScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+
     this.animateOverlay = new AnimateOverlay();
+    this.animationScreenIntroTitle = new AccentTypographyBuild(`.intro__title`, 1000, `transform`);
+    this.animationScreenIntroDate = new AccentTypographyBuild(`.intro__date`, 500, `transform`);
   }
 
   init() {
@@ -51,6 +55,18 @@ export default class FullPageScroll {
           this.animateOverlay.destroy();
           resolve();
         }, this.OVERLAY_TIMEOUT);
+      } else if (this.activeScreen === this.introScreenIndex) {
+        setTimeout(() => {
+          this.animationScreenIntroTitle.init();
+        }, 0);
+        setTimeout(() => {
+          this.animationScreenIntroDate.init();
+        }, 500);
+        resolve();
+      } else if (this.prevScreen === this.introScreenIndex) {
+        this.animationScreenIntroTitle.destroy();
+        this.animationScreenIntroDate.destroy();
+        resolve();
       } else {
         resolve();
       }

@@ -79,4 +79,26 @@
 .rules__link {
   animation: animateRulesButton 1s 1.7s;
   animation-fill-mode: both;
+  transform-origin: right;
+}
+
+.intro__title {
+  padding-top: 2rem;
+}
+
+.word {
+  display: inline-block;
+  overflow: hidden;
+  padding: 2rem 0.3rem 0;
+  margin-top: -2rem;
+  white-space: nowrap;
+}
+
+.word .letter {
+  transform: translate3d(0, 1.1em, 0);
+  display: inline-block;
+}
+
+.active > .word .letter {
+  transform: translate3d(0, 0, 0);
 }
