@@ -1017,7 +1017,7 @@ img {
   0% {
     color: transparent;
     transform: scale(0); }
-  99% {
+  40% {
     color: transparent; }
   100% {
     transform: scale(1);
@@ -1026,12 +1026,10 @@ img {
 @keyframes animateRulesButton {
   0% {
     color: transparent;
-    transform: scaleX(0);
-    transform-origin: right; }
+    transform: scaleX(0); }
   50% {
     color: transparent;
-    transform: scaleX(1);
-    transform-origin: right; }
+    transform: scaleX(1); }
   100% {
     color: #5f458c; } }
 
@@ -3478,7 +3476,8 @@ img {
 
 .rules__link {
   animation: animateRulesButton 1s 1.7s;
-  animation-fill-mode: both; }
+  animation-fill-mode: both;
+  transform-origin: right; }
 
 .intro__title {
   padding-top: 2rem; }
