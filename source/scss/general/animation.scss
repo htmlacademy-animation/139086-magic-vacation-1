@@ -79,6 +79,7 @@
 .rules__link {
   animation: animateRulesButton 1s 1.7s;
   animation-fill-mode: both;
+  transform-origin: right;
 }
 
 .intro__title {

@@ -60,7 +60,7 @@
     transform: scale(0);
   }
 
-  99% {
+  40% {
     color: transparent;
   }
 
@@ -74,13 +74,11 @@
   0% {
     color: transparent;
     transform: scaleX(0);
-    transform-origin: right;
   }
 
   50% {
     color: transparent;
     transform: scaleX(1);
-    transform-origin: right;
   }
 
   100% {
