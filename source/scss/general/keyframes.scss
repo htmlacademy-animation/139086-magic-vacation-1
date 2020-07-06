@@ -89,7 +89,7 @@
 @keyframes animateSliderControlPrev {
   0% {
     opacity: 0;
-    transform: translate3d(-10rem, 0, 0) rotate(180deg);
+    transform: translate3d(-10rem, 0, 0) rotate(-180deg);
   }
 
   100% {
