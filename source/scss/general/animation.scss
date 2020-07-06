@@ -102,3 +102,19 @@
 .active > .word .letter {
   transform: translate3d(0, 0, 0);
 }
+
+.slider__control--prev,
+.slider__control--next {
+  animation-duration: 1s;
+  animation-delay: 0.9s;
+  animation-fill-mode: backwards;
+  animation-timing-function: cubic-bezier(0.17, 0.67, 0.81, 1.22);
+}
+
+.slider__control--prev {
+  animation-name: animateSliderControlPrev;
+}
+
+.slider__control--next {
+  animation-name: animateSliderControlNext;
+}
