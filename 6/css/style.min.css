@@ -1036,7 +1036,7 @@ img {
 @keyframes animateSliderControlPrev {
   0% {
     opacity: 0;
-    transform: translate3d(-10rem, 0, 0) rotate(180deg); }
+    transform: translate3d(-10rem, 0, 0) rotate(-180deg); }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) rotate(0); } }
@@ -3512,17 +3512,18 @@ img {
 .active > .word .letter {
   transform: translate3d(0, 0, 0); }
 
-.slider__control--prev {
-  animation-name: animateSliderControlPrev;
+.slider__control--prev,
+.slider__control--next {
   animation-duration: 1s;
   animation-delay: 0.9s;
-  animation-fill-mode: backwards; }
+  animation-fill-mode: backwards;
+  animation-timing-function: cubic-bezier(0.17, 0.67, 0.81, 1.22); }
+
+.slider__control--prev {
+  animation-name: animateSliderControlPrev; }
 
 .slider__control--next {
-  animation-name: animateSliderControlNext;
-  animation-duration: 1s;
-  animation-delay: 0.9s;
-  animation-fill-mode: backwards; }
+  animation-name: animateSliderControlNext; }
 
 
 /*# sourceMappingURL=style.min.css.map*/
