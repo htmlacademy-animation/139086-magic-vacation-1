@@ -1,5 +1,5 @@
 import throttle from 'lodash/throttle';
-import {AnimateOverlay, AccentTypographyBuild} from './animation.js';
+import {AnimateOverlay, AccentTypographyBuild, AnimateSvg} from './animation.js';
 
 export default class FullPageScroll {
   constructor() {
@@ -21,6 +21,7 @@ export default class FullPageScroll {
     this.animateOverlay = new AnimateOverlay();
     this.animationScreenIntroTitle = new AccentTypographyBuild(`.intro__title`, 1000, `transform`);
     this.animationScreenIntroDate = new AccentTypographyBuild(`.intro__date`, 500, `transform`);
+    this.animateSvg = new AnimateSvg(`.prizes__item--primary`);
   }
 
   init() {
@@ -49,7 +50,10 @@ export default class FullPageScroll {
 
   changePageDisplay() {
     const promise = new Promise((resolve) => {
-      if (this.prevScreen === this.historyScreenIndex && this.activeScreen === this.prizesScreenIndex) {
+      if (this.activeScreen === this.prizesScreenIndex) {
+        this.animateSvg.init();
+        resolve();
+      } else if (this.prevScreen === this.historyScreenIndex && this.activeScreen === this.prizesScreenIndex) {
         this.animateOverlay.init();
         setTimeout(() => {
           this.animateOverlay.destroy();

@@ -78,4 +78,14 @@ class AccentTypographyBuild {
   }
 }
 
-export {animation, AnimateOverlay, AccentTypographyBuild};
+class AnimateSvg {
+  constructor(element) {
+    this._element = document.querySelector(element);
+  }
+
+  init() {
+    this._element.src = this._element.dataset.src;
+  }
+}
+
+export {animation, AnimateOverlay, AccentTypographyBuild, AnimateSvg};
