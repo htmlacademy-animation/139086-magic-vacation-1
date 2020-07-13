@@ -184,7 +184,7 @@ repeatCount="indefinite"/>
     <path d="M108.9,280.69a118.21,118.21,0,0,1,26.54,13.47,213.62,213.62,0,0,1-28.23-8,221.65,221.65,0,0,1-26.55-11.57,113.82,113.82,0,0,1,28.24,6.08" fill="#068e4d"/>
     <path d="M141,264.26a236.09,236.09,0,0,0-5.58,29.9,117.46,117.46,0,0,0,11.15-27.73,127.2,127.2,0,0,0,4-31A214.24,214.24,0,0,0,141,264.26" fill="#068e4d"/>
     <path d="M92.62,217.67A529.26,529.26,0,0,1,149.48,328" fill="none" stroke="#36e69a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <animateTransform attributeName="transform" type="translate" from="-130, 0" to="0, 0" dur="0.8s" begin="2s" fill="freeze" additive="sum"/> <animateTransform attributeName="transform" type="rotate" values="0, 150, 330; 0, 150, 300; 3, 150, 330; -1, 150, 330; 1, 150, 330; 0,  50, 300" dur="1.5s" begin="2s" keyTimes="0; 0.5; 0.6; 0.7; 0.9; 1" fill="freeze" additive="sum"/>
+    <animateTransform attributeName="transform" type="translate" from="-130, 0" to="0, 0" dur="0.8s" begin="2s" fill="freeze" additive="sum"/> <animateTransform attributeName="transform" type="rotate" values="0, 150, 330; 0, 150, 300; 3, 150, 330; -1, 150, 330; 1, 150, 330; 0, 150, 300" dur="1.5s" begin="2s" keyTimes="0; 0.5; 0.6; 0.7; 0.9; 1" fill="freeze" additive="sum"/>
     <animate attributeType="CSS" attributeName="opacity" from="0" to="1" dur="0.8s" begin="2s" fill="freeze"/>
   </g>
   <g opacity="0">

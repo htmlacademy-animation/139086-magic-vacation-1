@@ -21,7 +21,8 @@ export default class FullPageScroll {
     this.animateOverlay = new AnimateOverlay();
     this.animationScreenIntroTitle = new AccentTypographyBuild(`.intro__title`, 1000, `transform`);
     this.animationScreenIntroDate = new AccentTypographyBuild(`.intro__date`, 500, `transform`);
-    this.animateSvg = new AnimateSvg(`.prizes__item--primary`);
+    this.animatePrimaryPrize = new AnimateSvg(`.prizes__item--primary`);
+    this.animateSecondaryPrize = new AnimateSvg(`.prizes__item--secondary`);
   }
 
   init() {
@@ -49,16 +50,35 @@ export default class FullPageScroll {
   }
 
   changePageDisplay() {
+    this.changeVisibilityDisplay();
+    this.changeActiveMenuItem();
+    this.emitChangeDisplayEvent();
+  }
+
+  changeVisibilityDisplay() {
     const promise = new Promise((resolve) => {
-      if (this.activeScreen === this.prizesScreenIndex) {
-        this.animateSvg.init();
-        resolve();
-      } else if (this.prevScreen === this.historyScreenIndex && this.activeScreen === this.prizesScreenIndex) {
+      if (this.prevScreen === this.historyScreenIndex && this.activeScreen === this.prizesScreenIndex) {
         this.animateOverlay.init();
         setTimeout(() => {
           this.animateOverlay.destroy();
           resolve();
         }, this.OVERLAY_TIMEOUT);
+      } else {
+        resolve();
+      }
+    });
+
+    promise.then(() => {
+      this.screenElements.forEach((screen) => {
+        screen.classList.add(`screen--hidden`);
+        screen.classList.remove(`active`);
+      });
+      this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
+      this.screenElements[this.activeScreen].classList.add(`active`);
+
+      if (this.activeScreen === this.prizesScreenIndex) {
+        this.animatePrimaryPrize.init();
+        this.animateSecondaryPrize.init();
       } else if (this.activeScreen === this.introScreenIndex) {
         setTimeout(() => {
           this.animationScreenIntroTitle.init();
@@ -66,30 +86,11 @@ export default class FullPageScroll {
         setTimeout(() => {
           this.animationScreenIntroDate.init();
         }, 500);
-        resolve();
       } else if (this.prevScreen === this.introScreenIndex) {
         this.animationScreenIntroTitle.destroy();
         this.animationScreenIntroDate.destroy();
-        resolve();
-      } else {
-        resolve();
       }
     });
-
-    promise.then(() => {
-      this.changeVisibilityDisplay();
-      this.changeActiveMenuItem();
-      this.emitChangeDisplayEvent();
-    });
-  }
-
-  changeVisibilityDisplay() {
-    this.screenElements.forEach((screen) => {
-      screen.classList.add(`screen--hidden`);
-      screen.classList.remove(`active`);
-    });
-    this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
-    this.screenElements[this.activeScreen].classList.add(`active`);
   }
 
   changeActiveMenuItem() {
