@@ -10111,7 +10111,7 @@ module.exports = code;
 /*!****************************************!*\
   !*** ./source/js/modules/animation.js ***!
   \****************************************/
-/*! exports provided: animation, AnimateOverlay, AccentTypographyBuild, AnimateSvg */
+/*! exports provided: animation, AnimateOverlay, AccentTypographyBuild, AnimatePrizes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10119,7 +10119,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "animation", function() { return animation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimateOverlay", function() { return AnimateOverlay; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccentTypographyBuild", function() { return AccentTypographyBuild; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimateSvg", function() { return AnimateSvg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimatePrizes", function() { return AnimatePrizes; });
 const animation = () => {
   window.addEventListener(`load`, () => {
     document.querySelector(`body`).classList.add(`animate`);
@@ -10200,13 +10200,22 @@ class AccentTypographyBuild {
   }
 }
 
-class AnimateSvg {
-  constructor(element) {
-    this._element = document.querySelector(element);
+class AnimatePrizes {
+  constructor(primaryElement, secondaryElement, additionalElement) {
+    this._primaryElement = document.querySelector(primaryElement);
+    this._secondaryElement = document.querySelector(secondaryElement);
+    this._additionalElement = document.querySelector(additionalElement);
   }
 
   init() {
-    this._element.src = this._element.dataset.src;
+    this._primaryElement.src = this._primaryElement.dataset.src;
+    setTimeout(() => {
+      this._secondaryElement.src = this._secondaryElement.dataset.src;
+
+      setTimeout(() => {
+        this._additionalElement.src = this._additionalElement.dataset.src;
+      }, 1500);
+    }, 3000);
   }
 }
 
@@ -10407,9 +10416,10 @@ class FullPageScroll {
     this.animateOverlay = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AnimateOverlay"]();
     this.animationScreenIntroTitle = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AccentTypographyBuild"](`.intro__title`, 1000, `transform`);
     this.animationScreenIntroDate = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AccentTypographyBuild"](`.intro__date`, 500, `transform`);
-    this.animatePrimaryPrize = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AnimateSvg"](`.prizes__item--primary`);
-    this.animateSecondaryPrize = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AnimateSvg"](`.prizes__item--secondary`);
-    this.animateAdditionalPrize = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AnimateSvg"](`.prizes__item--additional`);
+    this.animationScreenPrizesTitle = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AccentTypographyBuild"](`.prizes__title`, 1000, `transform`);
+    this.animatePrizes = new _animation_js__WEBPACK_IMPORTED_MODULE_1__["AnimatePrizes"](`.prizes__item--primary`, `.prizes__item--secondary`, `.prizes__item--additional`);
+    // this.animateSecondaryPrize = new AnimateSvg(`.prizes__item--secondary`);
+    // this.animateAdditionalPrize = new AnimateSvg(`.prizes__item--additional`);
   }
 
   init() {
@@ -10456,6 +10466,13 @@ class FullPageScroll {
     });
 
     promise.then(() => {
+      if (this.prevScreen === this.introScreenIndex) {
+        this.animationScreenIntroTitle.destroy();
+        this.animationScreenIntroDate.destroy();
+      } else if (this.prevScreen === this.prizesScreenIndex) {
+        this.animationScreenPrizesTitle.destroy();
+      }
+
       this.screenElements.forEach((screen) => {
         screen.classList.add(`screen--hidden`);
         screen.classList.remove(`active`);
@@ -10464,9 +10481,10 @@ class FullPageScroll {
       this.screenElements[this.activeScreen].classList.add(`active`);
 
       if (this.activeScreen === this.prizesScreenIndex) {
-        this.animatePrimaryPrize.init();
-        this.animateSecondaryPrize.init();
-        this.animateAdditionalPrize.init();
+        setTimeout(() => {
+          this.animationScreenPrizesTitle.init();
+        }, 10);
+        this.animatePrizes.init();
       } else if (this.activeScreen === this.introScreenIndex) {
         setTimeout(() => {
           this.animationScreenIntroTitle.init();
@@ -10474,9 +10492,6 @@ class FullPageScroll {
         setTimeout(() => {
           this.animationScreenIntroDate.init();
         }, 500);
-      } else if (this.prevScreen === this.introScreenIndex) {
-        this.animationScreenIntroTitle.destroy();
-        this.animationScreenIntroDate.destroy();
       }
     });
   }
