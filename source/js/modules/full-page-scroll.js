@@ -23,6 +23,7 @@ export default class FullPageScroll {
     this.animationScreenIntroDate = new AccentTypographyBuild(`.intro__date`, 500, `transform`);
     this.animatePrimaryPrize = new AnimateSvg(`.prizes__item--primary`);
     this.animateSecondaryPrize = new AnimateSvg(`.prizes__item--secondary`);
+    this.animateAdditionalPrize = new AnimateSvg(`.prizes__item--additional`);
   }
 
   init() {
@@ -79,6 +80,7 @@ export default class FullPageScroll {
       if (this.activeScreen === this.prizesScreenIndex) {
         this.animatePrimaryPrize.init();
         this.animateSecondaryPrize.init();
+        this.animateAdditionalPrize.init();
       } else if (this.activeScreen === this.introScreenIndex) {
         setTimeout(() => {
           this.animationScreenIntroTitle.init();
