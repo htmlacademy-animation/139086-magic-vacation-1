@@ -1,5 +1,5 @@
 import throttle from 'lodash/throttle';
-import {AnimateOverlay, AccentTypographyBuild, AnimateSvg} from './animation.js';
+import {AnimateOverlay, AccentTypographyBuild, AnimatePrizes} from './animation.js';
 
 export default class FullPageScroll {
   constructor() {
@@ -21,9 +21,10 @@ export default class FullPageScroll {
     this.animateOverlay = new AnimateOverlay();
     this.animationScreenIntroTitle = new AccentTypographyBuild(`.intro__title`, 1000, `transform`);
     this.animationScreenIntroDate = new AccentTypographyBuild(`.intro__date`, 500, `transform`);
-    this.animatePrimaryPrize = new AnimateSvg(`.prizes__item--primary`);
-    this.animateSecondaryPrize = new AnimateSvg(`.prizes__item--secondary`);
-    this.animateAdditionalPrize = new AnimateSvg(`.prizes__item--additional`);
+    this.animationScreenPrizesTitle = new AccentTypographyBuild(`.prizes__title`, 1000, `transform`);
+    this.animatePrizes = new AnimatePrizes(`.prizes__item--primary`, `.prizes__item--secondary`, `.prizes__item--additional`);
+    // this.animateSecondaryPrize = new AnimateSvg(`.prizes__item--secondary`);
+    // this.animateAdditionalPrize = new AnimateSvg(`.prizes__item--additional`);
   }
 
   init() {
@@ -70,6 +71,13 @@ export default class FullPageScroll {
     });
 
     promise.then(() => {
+      if (this.prevScreen === this.introScreenIndex) {
+        this.animationScreenIntroTitle.destroy();
+        this.animationScreenIntroDate.destroy();
+      } else if (this.prevScreen === this.prizesScreenIndex) {
+        this.animationScreenPrizesTitle.destroy();
+      }
+
       this.screenElements.forEach((screen) => {
         screen.classList.add(`screen--hidden`);
         screen.classList.remove(`active`);
@@ -78,9 +86,10 @@ export default class FullPageScroll {
       this.screenElements[this.activeScreen].classList.add(`active`);
 
       if (this.activeScreen === this.prizesScreenIndex) {
-        this.animatePrimaryPrize.init();
-        this.animateSecondaryPrize.init();
-        this.animateAdditionalPrize.init();
+        setTimeout(() => {
+          this.animationScreenPrizesTitle.init();
+        }, 10);
+        this.animatePrizes.init();
       } else if (this.activeScreen === this.introScreenIndex) {
         setTimeout(() => {
           this.animationScreenIntroTitle.init();
@@ -88,9 +97,6 @@ export default class FullPageScroll {
         setTimeout(() => {
           this.animationScreenIntroDate.init();
         }, 500);
-      } else if (this.prevScreen === this.introScreenIndex) {
-        this.animationScreenIntroTitle.destroy();
-        this.animationScreenIntroDate.destroy();
       }
     });
   }

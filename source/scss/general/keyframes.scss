@@ -18,14 +18,15 @@
   }
 }
 
+
 @keyframes moveLeft {
   0% {
-    transform: scaleX(0);
+    transform: translateX(100%);
     transform-origin: right;
   }
 
   100% {
-    transform: translateX(1);
+    transform: translateX(0);
     transform-origin: right;
   }
 }
