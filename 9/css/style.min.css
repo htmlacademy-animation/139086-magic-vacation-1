@@ -3160,7 +3160,6 @@ img {
       background-color: #a67ee5;
       border-color: #a67ee5; }
   .slider__control.swiper-button-disabled {
-    opacity: 0.5;
     pointer-events: none; }
 
 .slider__pagination.swiper-pagination {
