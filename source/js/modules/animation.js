@@ -86,12 +86,12 @@ class AnimatePrizes {
   }
 
   init() {
-    this._primaryElement.src = this._primaryElement.dataset.src;
+    this._primaryElement.src = `${this._primaryElement.dataset.src}?${Math.random()}`;
     setTimeout(() => {
-      this._secondaryElement.src = this._secondaryElement.dataset.src;
+      this._secondaryElement.src = `${this._secondaryElement.dataset.src}?${Math.random()}`;
 
       setTimeout(() => {
-        this._additionalElement.src = this._additionalElement.dataset.src;
+        this._additionalElement.src = `${this._additionalElement.dataset.src}?${Math.random()}`;
       }, 1500);
     }, 3000);
   }
