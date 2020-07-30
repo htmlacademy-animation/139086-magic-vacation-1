@@ -78,14 +78,23 @@ class AccentTypographyBuild {
   }
 }
 
-class AnimateSvg {
-  constructor(element) {
-    this._element = document.querySelector(element);
+class AnimatePrizes {
+  constructor(primaryElement, secondaryElement, additionalElement) {
+    this._primaryElement = document.querySelector(primaryElement);
+    this._secondaryElement = document.querySelector(secondaryElement);
+    this._additionalElement = document.querySelector(additionalElement);
   }
 
   init() {
-    this._element.src = this._element.dataset.src;
+    this._primaryElement.src = `${this._primaryElement.dataset.src}?${Math.random()}`;
+    setTimeout(() => {
+      this._secondaryElement.src = `${this._secondaryElement.dataset.src}?${Math.random()}`;
+
+      setTimeout(() => {
+        this._additionalElement.src = `${this._additionalElement.dataset.src}?${Math.random()}`;
+      }, 1500);
+    }, 3000);
   }
 }
 
-export {animation, AnimateOverlay, AccentTypographyBuild, AnimateSvg};
+export {animation, AnimateOverlay, AccentTypographyBuild, AnimatePrizes};
